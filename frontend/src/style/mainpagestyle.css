@@ -1,0 +1,172 @@
+* {
+    font-family: Inter;
+}
+
+:root {
+    --main-bg-col: white;
+    --main-text-col: black;
+
+    --secondary-bg-col: #F7F7F7;
+    --secondary-text-col: #3F3F3F;
+
+    --button-bg-col: var(--main-bg-col);
+    --button-hovered-bg-col: var(--secondary-bg-col);
+    --button-clicked-bg-col: #F0F0F0;
+
+    --add-button-bg-col: #8efd8e;
+    --add-button-border-col: #00aa00;
+    
+    --filter-button-bg-col: #e6e6e6;
+    --filter-button-border-col: #5e5e5e;
+}
+
+body {
+    margin: 0;
+}
+
+/* ===== Стили заголовка ===== */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    padding-bottom: 10px;
+    background-color: var(--secondary-bg-col);
+}
+
+/* === Стили названия страницы и карточки пользователя === */
+
+header .title-card, header .user-card {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+header .user-card {
+    flex-direction: row-reverse;
+}
+
+header .title-card img {
+    width: 50px;
+    height: 50px;
+}
+
+header .title-card a {
+    color: var(--main-text-col);
+    text-decoration: none;
+}
+
+header .title-card a h2 {
+    margin: 0;
+}
+
+header .user-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 35px;
+    border: 2px var(--main-text-col) solid;
+}
+
+/* === Основная секция === */
+
+main {
+    padding: 25px 10%;
+    background-color: var(--main-bg-col);
+}
+
+main .break {
+    background-color: var(--secondary-bg-col);
+    width: 100%;
+    height: 4px;
+    margin: 25px 0;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.caption-btns {
+    display: flex;
+    gap: 5px;
+    flex-direction: row-reverse;
+}
+
+.caption-btns .add-button, .caption-btns .filter-button {
+    width: 50px;
+    height: 50px;
+    border: 2px solid;
+    border-radius: 15px;
+    transition: 0.15s all ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.caption-btns .add-button {
+    border-color: var(--add-button-border-col);
+    background-color: var(--add-button-bg-col);
+    box-shadow: 2px 3px 3px var(--add-button-bg-col);
+}
+
+.caption-btns .filter-button {
+    border-color: var(--filter-button-border-col);
+    background-color: var(--filter-button-bg-col);
+    box-shadow: 2px 3px 3px var(--filter-button-bg-col);
+}
+
+.caption-btns .add-button img, .caption-btns .filter-button img {
+    padding: 5px;
+}
+
+/* === Footer === */
+
+footer {
+    display: flex;
+    background-color: var(--secondary-bg-col);
+    justify-content: space-around;
+    padding: 25px 0;
+}
+
+footer .link-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+footer a {
+    color: var(--main-text-col);
+    text-decoration: none;
+}
+
+/* === Кружочек загрузки === */
+
+@keyframes anim {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    animation: anim 1s infinite linear;
+    width: fit-content;
+    align-self: center;
+}
