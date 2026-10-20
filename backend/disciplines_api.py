@@ -1,5 +1,3 @@
-from flask import Flask
-
 # Класс Discipline описывает данные одной дисциплины.
 class Discipline:
     id = 0

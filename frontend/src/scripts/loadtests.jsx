@@ -36,42 +36,14 @@ function putSpinner(root) {
 }
 
 async function getTests() {
-    if (!sessionStorage.getItem("tests")){
-        sessionStorage.setItem("tests", JSON.stringify([
-            {
-                id: 0, 
-                name: "Тест", 
-                discipline: "Дисциплина", 
-                due: Date.UTC(2026, 9, 21)
-            }, 
-            {
-                id: 1, 
-                name: "Тест 2", 
-                discipline: "Дисциплина", 
-                due: Date.UTC(2026, 9, 22)
-            },
-            {
-                id: 2,
-                name: "Тест 3",
-                discipline: "Дисциплина 3",
-                due: Date.UTC(2026, 9, 18),
-                passed: true,
-                score: 18,
-                maxScore: 20
-            },
-            {
-                id: 3,
-                name: "Тест 4",
-                discipline: "Дисциплина 4",
-                due: Date.UTC(2026, 9, 18),
-                passed: false,
-                score: 8,
-                maxScore: 20
-            }
-        ]));
+    const testsKey = "tests";
+    if (!sessionStorage.getItem(testsKey)) {
+        const tests = await apiQuery("/tests/list");
+        sessionStorage.setItem(testsKey, JSON.stringify(tests));
         console.log("Тесты обновлены");
+        return tests;
     }
-    return JSON.parse(sessionStorage.getItem("tests"));
+    return JSON.parse(sessionStorage.getItem(testsKey));
 }
 
 function renderTests(tests, root, filter) {
@@ -80,7 +52,8 @@ function renderTests(tests, root, filter) {
         filter.dueOnly && t.due > Date.now() ||
         filter.passed && t.passed ||
         filter.failed && t.failed
-    );
+    )
+        .sort((a, b) => Math.abs(a.due) - Math.abs(b.due));
     const testItems = filteredTests.map(test => 
     <TestCard 
         key={test.id} 
