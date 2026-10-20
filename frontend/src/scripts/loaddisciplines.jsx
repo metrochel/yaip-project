@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { Spinner } from "../util/common";
 import DisciplineCard from "../util/disciplinecards";
+import { apiQuery } from "../util/apireq";
 
 function putSpinner(root) {
     root.render(<Spinner />)
@@ -9,13 +10,10 @@ function putSpinner(root) {
 async function getDisciplines() {
     const disciplinesKey = "disciplines"
     if (!sessionStorage.getItem(disciplinesKey)) {
-        sessionStorage.setItem(disciplinesKey, JSON.stringify([
-            {
-                id: 0,
-                name: "Дисциплина 1",
-                teacher: "Преподаватель 1"
-            }
-        ]));
+        const disciplines = await apiQuery("/disciplines/list");
+        sessionStorage.setItem(disciplinesKey, JSON.stringify(disciplines));
+        console.log("Дисциплины обновлены");
+        return disciplines;
     }
     return JSON.parse(sessionStorage.getItem(disciplinesKey));
 }

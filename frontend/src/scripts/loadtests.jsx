@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import TestCard from '../util/testcards';
+import { apiQuery } from '../util/apireq';
 
 function today() {
     let curDate = new Date(Date.now());
