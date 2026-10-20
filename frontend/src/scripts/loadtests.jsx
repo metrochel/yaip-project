@@ -10,6 +10,9 @@ function today() {
 }
 
 function generateDueText(due) {
+    if (due < today()) {
+        return "";
+    }
     const msInDay = 1000 * 60 * 60 * 24;
     let diff = Math.floor((due - today()) / msInDay);
     if (diff == 0) {
@@ -32,38 +35,72 @@ function putSpinner(root) {
 }
 
 async function getTests() {
-    await fetch("/api/thing");
-    return [
-        {
-            id: 0, 
-            name: "Тест", 
-            discipline: "Дисциплина", 
-            due: Date.UTC(2026, 9, 18)
-        }, 
-        {
-            id: 1, 
-            name: "Тест 2", 
-            discipline: "Дисциплина", 
-            due: Date.UTC(2026, 9, 20)
-        }
-    ];
+    if (!sessionStorage.getItem("tests")){
+        sessionStorage.setItem("tests", JSON.stringify([
+            {
+                id: 0, 
+                name: "Тест", 
+                discipline: "Дисциплина", 
+                due: Date.UTC(2026, 9, 21)
+            }, 
+            {
+                id: 1, 
+                name: "Тест 2", 
+                discipline: "Дисциплина", 
+                due: Date.UTC(2026, 9, 22)
+            },
+            {
+                id: 2,
+                name: "Тест 3",
+                discipline: "Дисциплина 3",
+                due: Date.UTC(2026, 9, 18),
+                passed: true,
+                score: 18,
+                maxScore: 20
+            },
+            {
+                id: 3,
+                name: "Тест 4",
+                discipline: "Дисциплина 4",
+                due: Date.UTC(2026, 9, 18),
+                passed: false,
+                score: 8,
+                maxScore: 20
+            }
+        ]));
+        console.log("Тесты обновлены");
+    }
+    return JSON.parse(sessionStorage.getItem("tests"));
 }
 
-function renderTests(tests, root) {
-    const testItems = tests.map(test => <TestCard 
-        key={test.id} name={test.name} discipline={test.discipline} due={generateDueText(test.due)} allowedEdit={false} />);
-    root.render(<>{testItems}</>);
+function renderTests(tests, root, filter) {
+    const filteredTests = tests.filter(t =>
+        filter.pastOnly && t.due < Date.now() ||
+        filter.dueOnly && t.due > Date.now() ||
+        filter.passed && t.passed ||
+        filter.failed && t.failed
+    );
+    const testItems = filteredTests.map(test => 
+    <TestCard 
+        key={test.id} 
+        name={test.name} 
+        discipline={test.discipline} 
+        due={generateDueText(test.due)} 
+        score={test.score}
+        maxScore={test.maxScore}
+        passed={test.passed}
+        allowedEdit={filter.allowedEdit} 
+        />);
+    root.render(testItems.length ? (<>{testItems}</>) : (<p>Тестов нет</p>));
 }
 
-export default async function loadTests(sectionId) {
-    console.log("Загружаю тесты.");
-
+export default async function loadTests(sectionId, filter) {
     const element = document.getElementById(sectionId);
     const root = createRoot(element);
     
     putSpinner(root);
     
     const tests = await getTests();
-    root.render(<h1>fdhjkafhjk</h1>)
-    renderTests(tests, root);
+
+    renderTests(tests, root, filter);
 }

@@ -146,11 +146,11 @@
     font-size: 10pt;
 }
 
-.success-grade {
+.success-text {
     color: var(--passed-text-col);
 }
 
-.fail-grade {
+.fail-text {
     color: var(--failed-text-col);
 }
 

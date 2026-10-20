@@ -46,4 +46,7 @@ createRoot(document.getElementById("root")).render(
         <App />
     </StrictMode>
 );
-setTimeout(() => loadTests("tests"), 250);
+setTimeout(() => loadTests("tests", {
+    allowedEdit: true,
+    dueOnly: true,
+}), 250);
