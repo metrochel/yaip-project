@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { Header, Footer, Spacer, CaptionBtns } from "./util/common";
 import { createRoot } from 'react-dom/client';
+import loadTests from './scripts/loadtests';
 
 function UpcomingTestsHeader() {
     return (
