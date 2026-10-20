@@ -34,6 +34,10 @@ export function Spacer() {
     return <p className="break"></p>;
 }
 
+export function Spinner() {
+    return <img src={null} className="spinner" alt="Загрузка..."></img>;
+}
+
 export function CaptionBtns() {
     return (
         <div className="caption-btns">
