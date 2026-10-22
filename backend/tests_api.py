@@ -1,5 +1,6 @@
 from datetime import date, datetime, timedelta
 from random import randint
+from app import db
 
 class Test:
     id = 0
@@ -45,7 +46,6 @@ def list_tests():
         d = date.today() + timedelta(days=i)
         dt = datetime(d.year, d.month, d.day)
         timestamp = dt.timestamp()
-        print(timestamp)
         return Test(idx, f"Тест {idx + 1}", "Дисциплина", date.today() + timedelta(days=randint(-5, 5)), grade > max_grade // 2, grade, max_grade)
     
     tests_list = [generate_test(i) for i in range(-RANGE, RANGE + 1)]
