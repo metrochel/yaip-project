@@ -11,6 +11,7 @@ async function getDisciplines() {
     const disciplinesKey = "disciplines"
     if (!sessionStorage.getItem(disciplinesKey)) {
         const disciplines = await apiQuery("/disciplines/list");
+        if (!disciplines) return null;
         sessionStorage.setItem(disciplinesKey, JSON.stringify(disciplines));
         console.log("Дисциплины обновлены");
         return disciplines;
@@ -19,6 +20,10 @@ async function getDisciplines() {
 }
 
 function renderDisciplines(root, disciplines, filter) {
+    if (!disciplines) {
+        root.render(<p>Дисциплин нет</p>);
+        return;
+    }
     const filteredDiscips = disciplines.filter((d) => true);
 
     const discipItems = filteredDiscips.map(d => (

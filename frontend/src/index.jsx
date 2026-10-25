@@ -8,7 +8,7 @@ export function TestsHeader() {
     return (
         <div className="caption">
             <h1>Тесты</h1>
-            <CaptionBtns/>
+            <CaptionBtns />
         </div>
     );
 }
@@ -17,7 +17,7 @@ export function DisciplinesHeader() {
     return (
         <div className="caption">
             <h1>База знаний</h1>
-            <CaptionBtns/>
+            <CaptionBtns addOnClick={() => window.location.assign("/add-discipline.html")} />
         </div>
     );
 }

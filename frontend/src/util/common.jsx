@@ -21,9 +21,9 @@ export function Footer() {
     return (
         <footer>
             <div className="link-stack">
-                <a href="index.html">Главная</a>
-                <a href="tests.html">Тесты</a>
-                <a href="knowledge.html">База знаний</a>
+                <a href="/index.html">Главная</a>
+                <a href="/tests.html">Тесты</a>
+                <a href="/knowledge.html">База знаний</a>
             </div>
             <a href="#top">Наверх</a>
         </footer>
@@ -38,15 +38,16 @@ export function Spinner() {
     return <img src={null} className="spinner" alt="Загрузка..."></img>;
 }
 
-export function CaptionBtns() {
+export function CaptionBtns({ addOnClick, filterOnClick }) {
     return (
         <div className="caption-btns">
             <button className="add-button">
-                <img src={null} alt="Добавить" />
+                <img src={null} alt="Добавить" onClick={() => addOnClick()} />
             </button>
-            <button className="filter-button">
+            <button className="filter-button" onClick={() => filterOnClick()}>
                 <img src={null} alt="Фильтр" />
             </button>
         </div>
     );
 }
+
