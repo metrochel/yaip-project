@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy":"http://localhost:5000/",
+  "proxy": "http://localhost:5000/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,8 +11,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "micromark": "^4.0.3",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",

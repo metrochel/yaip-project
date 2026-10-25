@@ -25,5 +25,5 @@ frontend/*.njsproj
 frontend/*.sln
 frontend/*.sw?
 
-db
+db/projdatabase.db
 openide

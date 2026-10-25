@@ -47,7 +47,7 @@ function EditBtn() {
     );
 }
 
-export default function TestCard({name, discipline, due, grade, maxGrade, passed, allowedEdit}) {
+export default function TestCard({id, name, discipline, due, grade, maxGrade, passed, allowedEdit}) {
     const isDue = due != "";
     return (
         <div className="test-card">

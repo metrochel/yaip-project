@@ -69,7 +69,8 @@ function renderTests(tests, root, filter) {
 
     const testItems = filteredTests.map(test => 
     <TestCard 
-        id={test.id} 
+        key={test.id} 
+        id={test.id}
         name={test.name} 
         discipline={test.discipline} 
         due={generateDueText(test.due)} 

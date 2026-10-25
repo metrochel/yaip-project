@@ -17,7 +17,7 @@ export function DisciplinesHeader() {
     return (
         <div className="caption">
             <h1>База знаний</h1>
-            <CaptionBtns addOnClick={() => window.location.assign("/discipline/add-discipline.html")} />
+            <CaptionBtns addOnClick={() => window.location.assign("/discipline/create-discipline.html")} />
         </div>
     );
 }

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import loadTests from './scripts/loadtests'
 
-const disciplineData = getDisciplineData();
+const discipline = getDisciplineData();
 
 function getDisciplineData() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -22,7 +22,9 @@ function KnowledgeHeader() {
     return (
     <div className="caption">
         <h2>Знания</h2>
-        <CaptionBtns />
+        <CaptionBtns 
+            addOnClick={() => window.location.href = `/factoid/create-factoid?id=${discipline.id}`}
+            />
     </div>
     );
 }
@@ -37,7 +39,6 @@ function TestsHeader() {
 }
 
 export default function App() {
-    const discipline = getDisciplineData();
     if (!discipline) {
         window.location.replace("/index.html");
     }
@@ -71,6 +72,6 @@ createRoot(document.getElementById("root")).render(
 setTimeout(() => {
     loadTests("tests", {
         dueOnly: true,
-        discipline: disciplineData.id
+        discipline: discipline.id
     });
 }, 250);

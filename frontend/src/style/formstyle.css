@@ -1,6 +1,11 @@
 :root {
     --input-border-col: #c1c1c1;
-    --input-border-col: #a0a0a0;
+    --input-hover-border-col: #a0a0a0;
+}
+
+/* Этот стиль нужен, чтобы браузер активировал стилизуемые списки и позволил упростить их стилизацию. */
+select, ::picker(select) {
+    appearance: base-select;
 }
 
 .form-box {
@@ -11,11 +16,14 @@
     margin: 10px 0;
 }
 
-.form-box input {
+/* Стили для рамок ввода */
+.form-box input, .form-box select {
     border: 2px var(--input-border-col) solid;
     border-radius: 5px;
-    padding: 4px;
+    padding: 5px 10px;
     transition: 0.15s all ease;
+    background-color: var(--secondary-bg-col);
+    font-size: 12pt;
 
     &:active {
         border-color: var(--main-text-col);
@@ -26,12 +34,67 @@
     }
 }
 
+.form-box input:focus, .form-box select:open {
+    border-color: #d88201;
+}
+
+.form-box input::-webkit-inner-spin-button, .form-box input::-webkit-outer-spin-button {
+    background-color: var(--secondary-bg-col);
+}
+
+/* Стили для опций в меню <select> */
+.form-box option {
+    border: none;
+    padding: 3px 10px;
+    transition: 0.15s all ease;
+    border: 1px solid var(--input-border-col);
+
+    &:first-of-type {
+        border-radius: 5px 5px 0 0;
+    }
+
+    &:last-of-type {
+        border-radius: 0 0 5px 5px;
+    }
+
+    &:nth-of-type(even) {
+        background-color: var(--secondary-bg-col);
+    }
+
+    &:hover {
+        background-color: var(--input-border-col);
+    }
+
+    &:checked {
+        font-weight: bold;
+    }
+}
+
+::picker(select) {
+    border-radius: 5px;
+    border: 2px var(--input-border-col) solid;
+}
+
+/* Стили для стрелочки тега <select> */
+.form-box select::picker-icon {
+    transition: 0.2s all ease;
+}
+
+.form-box select:open::picker-icon {
+    transform: rotate(180deg);
+}
+
+.form-box option::checkmark {
+    order: 1;
+    margin-left: auto;
+}
+
+/* Стили для кнопки отправки */
 button[type="submit"] {
-    margin: 10px 0;
     background-color: var(--main-bg-col);
     padding: 5px 10px;
     border: 2px var(--input-border-col) solid;
-    border-radius: 10px;
+    border-radius: 5px;
     transition: 0.15s all ease;
 
     &:hover {
