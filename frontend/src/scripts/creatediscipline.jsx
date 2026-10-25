@@ -20,9 +20,10 @@ export default async function createDiscipline(name, teacher) {
         const id = response.id;
         console.log(`ID новой дисциплины: ${id}`);
         updateDisciplines(id, name, teacher);
-        window.location.replace(`discipline.html?id=${id}`);
+        return id;
     }
     catch {
         console.error("Не удалось создать дисциплину.");
+        return null;
     }
 }

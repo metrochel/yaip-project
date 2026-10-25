@@ -31,8 +31,9 @@ createRoot(document.getElementById("root")).render(
     </StrictMode>
 );
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     if (!window.location.search) return;
     const [name, teacher] = getDisciplineParams();
-    createDiscipline(name, teacher);
+    const id = await createDiscipline(name, teacher);
+    window.location.replace(`/discipline/discipline.html?id=${id}`);
 })

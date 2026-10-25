@@ -28,7 +28,7 @@ function renderDisciplines(root, disciplines, filter) {
 
     const discipItems = filteredDiscips.map(d => (
         <DisciplineCard
-            key={d.id}
+            id={d.id}
             name={d.name}
             teacher={d.teacher}
         />
@@ -38,6 +38,11 @@ function renderDisciplines(root, disciplines, filter) {
 }
 
 export default async function loadDisciplines(sectionId, filter) {
+    if (!sectionId) {
+        await getDisciplines();
+        return;
+    }
+    
     const element = document.getElementById(sectionId);
     const root = createRoot(element);
 

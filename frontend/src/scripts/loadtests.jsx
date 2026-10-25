@@ -57,7 +57,8 @@ function renderTests(tests, root, filter) {
         filter.pastOnly && t.due < Date.now() ||
         filter.dueOnly && t.due > Date.now() ||
         filter.passed && t.passed ||
-        filter.failed && t.failed
+        filter.failed && t.failed ||
+        filter.discipline != undefined && t.discipline == filter.discipline
     )
         .sort((a, b) => Math.abs(a.due) - Math.abs(b.due));
 
@@ -68,7 +69,7 @@ function renderTests(tests, root, filter) {
 
     const testItems = filteredTests.map(test => 
     <TestCard 
-        key={test.id} 
+        id={test.id} 
         name={test.name} 
         discipline={test.discipline} 
         due={generateDueText(test.due)} 
@@ -81,6 +82,11 @@ function renderTests(tests, root, filter) {
 }
 
 export default async function loadTests(sectionId, filter) {
+    if (!sectionId) {
+        await getTests();
+        return;
+    }
+    
     const element = document.getElementById(sectionId);
     const root = createRoot(element);
     
