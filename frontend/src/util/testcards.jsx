@@ -47,7 +47,7 @@ function EditBtn() {
     );
 }
 
-export default function TestCard({name, discipline, due, score, maxScore, passed, allowedEdit}) {
+export default function TestCard({name, discipline, due, grade, maxGrade, passed, allowedEdit}) {
     const isDue = due != "";
     return (
         <div className="test-card">
@@ -58,8 +58,8 @@ export default function TestCard({name, discipline, due, score, maxScore, passed
             ) : (<DueBubble due={due} />)
             }
             <div className="grades">
-                {!isDue ? <GradesText score={score} maxScore={maxScore} passed={passed} /> : <></>}
-                {!passed || due != "" ? <button>Подготовиться</button> : <></>}
+                {!isDue ? <GradesText grade={grade} maxGrade={maxGrade} passed={passed} /> : <></>}
+                {!passed || isDue ? <button>Подготовиться</button> : <></>}
             </div>
         </div>
     );

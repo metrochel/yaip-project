@@ -2,23 +2,23 @@ from datetime import date, datetime, timedelta
 from random import randint
 from app import db
 
-class Test:
-    id = 0
-    name = ""
-    discipline = ""
-    due = date.today()
-    passed = False
-    score = 0
-    max_score = 0
+class Test(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), nullable=False)
+    discipline = db.Column(db.Integer, nullable=False)
+    due = db.Column(db.Date, nullable=False)
+    factoids = db.Column(db.Text)
+    max_grade = db.Column(db.Integer, nullable=False)
     
-    def __init__(self, id, name, discipline, due, passed, score, max_score):
+    def __init__(self, id, name, discipline, due, passed, score, max_grade):
         self.id = id
         self.name = name
         self.discipline = discipline
         self.due = due
         self.passed = passed
         self.score = score
-        self.max_score = max_score
+        self.max_grade = max_grade
+
     
     def to_dict(self):
         dt = datetime(self.due.year, self.due.month, self.due.day)
@@ -30,23 +30,10 @@ class Test:
             "name": self.name,
             "discipline": self.discipline,
             "due": timestamp,
-            "passed": self.passed,
-            "score": self.score,
-            "maxScore": self.max_score
+            "maxGrade": self.max_grade
         }
 
 def list_tests():
-    RANGE = 5
-    def generate_test(i):
-        idx = i
-        if i < 0:
-            idx += RANGE * 2 + 1
-        max_grade = 20
-        grade = randint(0, max_grade)
-        d = date.today() + timedelta(days=i)
-        dt = datetime(d.year, d.month, d.day)
-        timestamp = dt.timestamp()
-        return Test(idx, f"Тест {idx + 1}", "Дисциплина", date.today() + timedelta(days=randint(-5, 5)), grade > max_grade // 2, grade, max_grade)
-    
-    tests_list = [generate_test(i) for i in range(-RANGE, RANGE + 1)]
-    return [test.to_dict() for test in tests_list]
+    tests_list = Test.query.all()
+
+    return [test.get_brief_dict() for test in tests_list]

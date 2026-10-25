@@ -39,6 +39,7 @@ async function getTests() {
     const testsKey = "tests";
     if (!sessionStorage.getItem(testsKey)) {
         const tests = await apiQuery("/tests/list");
+        if (!tests) return null;
         sessionStorage.setItem(testsKey, JSON.stringify(tests));
         console.log("Тесты обновлены");
         return tests;
@@ -47,6 +48,11 @@ async function getTests() {
 }
 
 function renderTests(tests, root, filter) {
+    if (!tests) {
+        root.render(<p>Тестов нет</p>);
+        return;
+    }
+
     const filteredTests = tests.filter(t =>
         filter.pastOnly && t.due < Date.now() ||
         filter.dueOnly && t.due > Date.now() ||
@@ -54,14 +60,20 @@ function renderTests(tests, root, filter) {
         filter.failed && t.failed
     )
         .sort((a, b) => Math.abs(a.due) - Math.abs(b.due));
+
+    if (!filteredTests) {
+        root.render(<p>Тестов нет</p>);
+        return;
+    }
+
     const testItems = filteredTests.map(test => 
     <TestCard 
         key={test.id} 
         name={test.name} 
         discipline={test.discipline} 
         due={generateDueText(test.due)} 
-        score={test.score}
-        maxScore={test.maxScore}
+        grade={test.grade}
+        maxGrade={test.maxGrade}
         passed={test.passed}
         allowedEdit={filter.allowedEdit} 
         />);
