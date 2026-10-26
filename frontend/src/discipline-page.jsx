@@ -1,7 +1,8 @@
 import { Header, Footer, Spacer, CaptionBtns } from './util/common';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
-import loadTests from './scripts/loadtests'
+import loadTests from './scripts/loadtests';
+import loadFactoids from './scripts/loadfactoids';
 
 const discipline = getDisciplineData();
 
@@ -74,4 +75,5 @@ setTimeout(() => {
         dueOnly: true,
         discipline: discipline.id
     });
+    loadFactoids("factoids", discipline.id);
 }, 250);

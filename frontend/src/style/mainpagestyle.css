@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-* {
+body, input, button {
     font-family: Sansation;
 }
 
@@ -89,6 +89,10 @@ section {
     flex-direction: column;
     align-items: center;
     width: 100%;
+}
+
+section h1, section h2, section h3 {
+    align-self: normal;
 }
 
 .caption {

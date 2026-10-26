@@ -36,4 +36,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     const [name, teacher] = getDisciplineParams();
     const id = await createDiscipline(name, teacher);
     window.location.replace(`/discipline/discipline.html?id=${id}`);
-})
+});

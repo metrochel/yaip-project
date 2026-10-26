@@ -1,6 +1,6 @@
 from flask import Flask, Response, request
 import json
-import disciplines_api, tests_api
+import disciplines_api, tests_api, factoid_api
 import flask_sqlalchemy
 
 from app import app, db
@@ -9,6 +9,62 @@ from app import app, db
 def code(status: int): return Response(status=status)
 
 def reply(response: str, status=200): return Response(status=status, response=response)
+
+
+def factoids_handle(func):
+    if func == "list":
+        if request.method != "GET":
+            # /factoid/get поддерживает только GET.
+            return code(405)
+
+        id = request.args.get("discipline")
+        print(id, type(id))
+        factoids_list = factoid_api.list_factoids(id)
+        if factoids_list is None:
+            return code(404)
+        
+        return reply(json.dumps(factoids_list))
+    if func == "get":
+        if request.method != "GET":
+            # /factoid/get поддерживает только GET.
+            return code(405)
+
+        id = request.args.get("id")
+        data = factoid_api.get_factoid(id)
+        if data is None:
+            return code(404)
+        
+        return reply(json.dumps(data))
+    if func == "create":
+        if request.method != "POST":
+            # /factoid/create поддерживает только POST.
+            return code(405)
+
+        body = request.get_json()
+        name = body["name"]
+        discipline = int(body["discipline"])
+        module = int(body["module"])
+        content = body["content"]
+
+        try:
+            id = factoid_api.create_factoid(name, discipline, module, content)
+            if id < 0:
+                # Создание провалилось по причине клиента.
+                payload = {
+                    "created": False
+                }
+                return reply(json.dumps(payload), 400)
+
+            payload = {
+                "created": True,
+                "id": id
+            }
+            return reply(json.dumps(payload), 201)
+        except Exception as e:
+            print(e)
+            return code(500)
+    else:
+        return code(404)
 
 
 def disciplines_handle(func):
@@ -60,6 +116,17 @@ def tests_handle(func):
 
 
 # === Маршруты ===
+
+@app.route("/api/factoid/<func>", methods=["GET", "POST"])
+def api_factoids(func):
+    try:
+        return factoids_handle(func)
+    except FileNotFoundError:
+        return code(404)
+    except Exception as e:
+        print(e)
+        return code(500)
+
 
 # Маршрут /api/disciplines
 @app.route("/api/disciplines/<func>", methods=['GET', 'POST'])

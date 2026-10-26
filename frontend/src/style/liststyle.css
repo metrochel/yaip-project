@@ -11,7 +11,7 @@
     --failed-bg-col: #fba3a3;
 }
 
-.test-card, .discipline-card {
+.test-card, .discipline-card, .factoid-card {
     display: grid;
     margin: 25px 0;
     padding: 15px 40px;
@@ -20,42 +20,56 @@
     box-shadow: 3px 4px 4px var(--card-border-col);
     transition: 0.15s all ease;
     align-self: stretch;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    & h2, & h3 {
+        grid-row: 1;
+        font-weight: 500;
+        grid-column: 1;
+        margin: 10px 0; 
+    }
+
+    & button {
+        grid-row: 2;
+        grid-column: 2;
+        border: 2px solid var(--main-text-col);
+        background-color: var(--button-bg-col);
+        height: fit-content;
+        padding: 7px 20px;
+        border-radius: 10px;
+        justify-self: right;
+        font-weight: 500;
+        transition: 0.15s all ease;
+
+        &:hover {
+            background-color: var(--button-hovered-bg-col);
+        }
+
+        &:active {
+            background-color: var(--button-clicked-bg-col);
+        }
+    }
 }
 
-.test-card:hover, .discipline-card:hover {
-    transform: translateY(-2px);
-}
-
-.test-card h2, .test-card h3, .discipline-card h2, .discipline-card h3 {
-    grid-row: 1;
-    font-weight: 500;
+.factoid-card p {
+    grid-row: 2;
     grid-column: 1;
-    margin: 10px 0;
+    color: var(--secondary-text-col);
+    font-size: 10pt;
+}
+
+.discipline-card p {
+    margin: 0;
+    grid-row: 3;
+    grid-column: 1;
+    color: var(--secondary-text-col);
 }
 
 .test-card h3, .discipline-card h3 {
     grid-row: 2;
-}
-
-.test-card button, .discipline-card button {
-    grid-row: 2;
-    grid-column: 2;
-    border: 2px solid var(--main-text-col);
-    background-color: var(--button-bg-col);
-    height: fit-content;
-    padding: 7px 20px;
-    border-radius: 10px;
-    justify-self: right;
-    font-weight: 500;
-    transition: 0.15s all ease;
-}
-
-.test-card button:hover, .discipline-card button:hover {
-    background-color: var(--button-hovered-bg-col);
-}
-
-.test-card button:active, .discipline-card button:active {
-    background-color: var(--button-clicked-bg-col);
 }
 
 .test-card span {
@@ -158,9 +172,3 @@
     margin-left: 15px;
 }
 
-.discipline-card p {
-    margin: 0;
-    grid-row: 3;
-    grid-column: 1;
-    color: var(--secondary-text-col);
-}
