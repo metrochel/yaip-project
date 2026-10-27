@@ -77,5 +77,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!window.location.search) return;
     const [name, discipline, module, content] = getFactoid();
     const id = await createFactoid(name, discipline, module, content);
-    // window.location.replace(`/factoid/factoid.html?id=${id}`);
+    window.location.replace(`/factoid/factoid.html?id=${id}`);
 });

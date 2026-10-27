@@ -21,12 +21,12 @@ search input {
     padding: 10px;
     border: 2px solid var(--search-border-col);
     border-radius: 10px;
-    width: 95%;
+    width: 90%;
     box-shadow: 4px 3px 3px var(--secondary-bg-col);
 }
 
 search button {
-    width: 5%;
+    width: fit-content;
     border: 2px solid var(--search-border-col);
     border-radius: 10px;
     background-color: var(--main-bg-col);

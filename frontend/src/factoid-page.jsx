@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import rehypeKatex from "rehype-katex";
 import { apiQuery } from "./util/apireq";
 import loadDisciplines from "./scripts/loaddisciplines";
+import "katex/dist/katex.css";
 
 const factoid = await getFactoidData();
 
@@ -23,7 +24,7 @@ async function getFactoidData() {
 }
 
 function disciplineName() {
-    const id = factoid.id;
+    const id = factoid.discipline;
 
     if (!sessionStorage.getItem("disciplines")) {
         loadDisciplines(null, {});

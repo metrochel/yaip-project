@@ -27,9 +27,16 @@
 
     & h2, & h3 {
         grid-row: 1;
-        font-weight: 500;
+        font-weight: 600;
         grid-column: 1;
         margin: 10px 0; 
+        font-size: 14pt;
+    }
+
+    & h3 {
+        font-size: 12pt;
+        font-weight: 500;
+        color: var(--secondary-text-col);
     }
 
     & button {
