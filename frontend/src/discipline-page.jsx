@@ -3,14 +3,18 @@ import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import loadTests from './scripts/loadtests';
 import loadFactoids from './scripts/loadfactoids';
+import loadDisciplines from './scripts/loaddisciplines';
 
-const discipline = getDisciplineData();
+const discipline = await getDisciplineData();
 
-function getDisciplineData() {
+async function getDisciplineData() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");
     
-    const disciplines = JSON.parse(sessionStorage.disciplines);
+    if (!sessionStorage.getItem("disciplines")) {
+        await loadDisciplines(null, {});
+    }
+    const disciplines = JSON.parse(sessionStorage.getItem("disciplines"));
     for (const discipline of disciplines) {
         if (discipline.id == id)
             return discipline;
