@@ -58,7 +58,8 @@ def list_factoids(id):
     max_module = db.session.query(
         func.max(Factoid.module)
     ).filter(Factoid.discipline == id).scalar()
-    print(max_module)
+    if (max_module is None):
+        return []
     
     factoids_list = []
     for module in range(1, max_module + 1):

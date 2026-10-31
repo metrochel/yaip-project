@@ -14,6 +14,10 @@ select, ::picker(select) {
     gap: 10px;
     width: 100%;
     margin: 10px 0;
+
+    & p {
+        display: none;
+    }
 }
 
 /* Стили для рамок ввода */
@@ -32,22 +36,22 @@ select, ::picker(select) {
     &:hover {
         border-color: var(--input-hover-border-col);
     }
+
+    &:user-invalid {
+        border-color: red;
+    }
 }
 
 .form-box input:focus, .form-box select:open {
     border-color: #d88201;
 }
 
-.form-box input::-webkit-inner-spin-button, .form-box input::-webkit-outer-spin-button {
-    background-color: var(--secondary-bg-col);
-}
-
 /* Стили для опций в меню <select> */
 .form-box option {
     border: none;
     padding: 3px 10px;
-    transition: 0.15s all ease;
     border: 1px solid var(--input-border-col);
+    transition: 0.15s all ease;
 
     &:first-of-type {
         border-radius: 5px 5px 0 0;

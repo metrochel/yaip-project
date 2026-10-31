@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { StrictMode, useState } from "react";
+import { StrictMode, useEffect, useRef, useState } from "react";
 import { Header, Footer, Spacer } from './util/common';
 import { TextInputControl, NumberInputControl, 
     SelectionControl, SubmitBtnControl } from "./util/formcontrols";
@@ -32,6 +32,8 @@ function LiveMarkdownEditor() {
 
 export default function App() {
     const urlParams = new URLSearchParams(window.location.search);
+    const formRef = useRef(null);
+
     let preselectId = null;
     if (urlParams.get("id")) {
         preselectId = Number.parseInt(urlParams.get("id"));
@@ -48,7 +50,7 @@ export default function App() {
         <Header />
         <main>
             <h1>Добавление знаний</h1>
-            <form>
+            <form ref={formRef}>
                 <TextInputControl id="name" label="Название" required={true}/>
                 <SelectionControl id="discipline" label="Дисциплина" 
                     selection={disciplineList} preselected={preselectId} />
@@ -70,12 +72,15 @@ function getFactoid() {
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <App />
-    </StrictMode>
+    </StrictMode> 
 );
 
 document.addEventListener("DOMContentLoaded", async () => {
     if (!window.location.search) return;
+
     const [name, discipline, module, content] = getFactoid();
+    if (name === undefined || discipline === undefined || module === undefined || content === undefined) return;
+
     const id = await createFactoid(name, discipline, module, content);
     window.location.replace(`/factoid/factoid.html?id=${id}`);
 });

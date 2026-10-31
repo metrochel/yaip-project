@@ -31,6 +31,11 @@ async function getFactoids(discipline) {
 }
 
 function renderFactoids(root, factoids) {
+    if (!factoids.length) {
+        root.render(<p>Знаний нет</p>);
+        return;
+    }
+
     const factoidList = factoids.map((fcs, idx) => 
         <ModuleSection key={idx} moduleNo={idx + 1} factoids={fcs} />);
 

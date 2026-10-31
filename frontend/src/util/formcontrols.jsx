@@ -4,6 +4,7 @@ export function TextInputControl({id, label, required}) {
     return <div className="form-box">
         <label htmlFor={id}>{label}</label>
         <input type="text" id={id} name={id} required={required}></input>
+        {required ? <p>Обязательно для заполнения</p> : <></>}
     </div>;
 }
 
