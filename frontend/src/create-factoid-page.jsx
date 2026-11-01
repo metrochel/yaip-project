@@ -35,8 +35,8 @@ export default function App() {
     const formRef = useRef(null);
 
     let preselectId = null;
-    if (urlParams.get("id")) {
-        preselectId = Number.parseInt(urlParams.get("id"));
+    if (urlParams.get("discipline")) {
+        preselectId = Number.parseInt(urlParams.get("discipline"));
     }
 
     if (!sessionStorage.disciplines) {

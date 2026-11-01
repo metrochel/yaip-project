@@ -6,6 +6,7 @@ search {
     display: flex;
     flex-direction: row;
     gap: 10px;
+    margin: 25px 0;
 }
 
 search h2 {
@@ -21,22 +22,23 @@ search input {
     padding: 10px;
     border: 2px solid var(--search-border-col);
     border-radius: 10px;
-    width: 90%;
+    width: 92%;
     box-shadow: 4px 3px 3px var(--secondary-bg-col);
 }
 
-search button {
-    width: fit-content;
+#search-button {
+    width: 7%;
     border: 2px solid var(--search-border-col);
     border-radius: 10px;
     background-color: var(--main-bg-col);
     transition: 0.15s all ease;
-}
+    padding: 10px 5px;
 
-search button:hover {
-    transform: translateY(-2px);
-}
+    &:hover {
+        transform: translateY(-2px);
+    }
 
-search button:active {
-    transform: scale(0.95);
+    &:active {
+        transform: scale(0.95);
+    }
 }

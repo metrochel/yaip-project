@@ -1,15 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Header, Footer, Spacer } from './util/common';
+import Search from "./util/knowledgesearch";
 import loadDisciplines from './scripts/loaddisciplines';
-import './style/searchstyle.css';
-
-function Search() {
-    return <search>
-        <input type="search" placeholder="Поиск..." />
-        <button>Поиск</button>
-    </search>;
-}
 
 export default function App() {
     return (

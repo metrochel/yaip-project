@@ -11,7 +11,18 @@
     --failed-bg-col: #fba3a3;
 }
 
-.test-card, .discipline-card, .factoid-card {
+@keyframes start-anim {
+    0% {
+        transform: translateY(-40px);
+        opacity: 0%;
+    }
+    100% {
+        transform: none;
+        opacity: 100%;
+    }
+}
+
+.test-card, .discipline-card, .factoid-card, .question-card {
     display: grid;
     margin: 25px 0;
     padding: 15px 40px;
@@ -20,6 +31,8 @@
     box-shadow: 3px 4px 4px var(--card-border-col);
     transition: 0.15s all ease;
     align-self: stretch;
+
+    animation: start-anim 0.25s ease;
 
     &:hover {
         transform: translateY(-2px);

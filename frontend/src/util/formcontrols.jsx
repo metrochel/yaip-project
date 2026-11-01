@@ -13,7 +13,14 @@ export function NumberInputControl({id, label, required, min, max}) {
         <label htmlFor={id}>{label}</label>
         <input type="number" id={id} name={id} required={required}
             min={min} max={max}></input>
-    </div>
+    </div>;
+}
+
+export function DateInputControl({id, label, required}) {
+    return <div className="form-box">
+        <label htmlFor={id}>{label}</label>
+        <input type="date" id={id} name={id} required={required}></input>
+    </div>;
 }
 
 export function SelectionControl({id, label, selection, preselected}) {

@@ -8,7 +8,8 @@ export function TestsHeader() {
     return (
         <div className="caption">
             <h1>Тесты</h1>
-            <CaptionBtns />
+            <CaptionBtns 
+                addOnClick={() => window.location.assign("/tests/create-test.html")}/>
         </div>
     );
 }

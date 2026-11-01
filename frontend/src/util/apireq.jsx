@@ -1,4 +1,4 @@
-const hostName = "localhost";
+const hostName = window.location.hostname;
 const apiPort = 5000;
 
 export function apiUrl(path) {

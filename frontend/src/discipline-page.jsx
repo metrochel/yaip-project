@@ -28,7 +28,7 @@ function KnowledgeHeader() {
     <div className="caption">
         <h2>Знания</h2>
         <CaptionBtns 
-            addOnClick={() => window.location.href = `/factoid/create-factoid?id=${discipline.id}`}
+            addOnClick={() => window.location.href = `/factoid/create-factoid?discipline=${discipline.id}`}
             />
     </div>
     );
@@ -38,7 +38,8 @@ function TestsHeader() {
     return (
     <div className="caption">
         <h2>Предстоящие тесты</h2>
-        <CaptionBtns />
+        <CaptionBtns
+            addOnClick={() => window.location.href = `/tests/create-test?discipline=${discipline.id}`} />
     </div>
     );
 }
