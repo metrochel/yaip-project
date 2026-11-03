@@ -133,6 +133,7 @@ def tests_handle(func):
             print(json.dumps(payload))
             return reply(json.dumps(payload), 201)
         except Exception as e:
+            print(e)
             payload = {
                 "created": False
             }

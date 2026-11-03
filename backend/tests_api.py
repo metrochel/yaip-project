@@ -1,6 +1,9 @@
 from datetime import date, datetime, timedelta
 from random import randint
 from app import db
+from factoid_api import Factoid
+from sqlalchemy import select
+import regex
 
 class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,14 +13,12 @@ class Test(db.Model):
     factoids = db.Column(db.Text)
     max_grade = db.Column(db.Integer, nullable=False)
     
-    def __init__(self, id, name, discipline, due, passed, score, max_grade):
-        self.id = id
+    def __init__(self, name, discipline, due, max_grade, factoids):
         self.name = name
         self.discipline = discipline
         self.due = due
-        self.passed = passed
-        self.score = score
         self.max_grade = max_grade
+        self.factoids = factoids
 
     
     def to_dict(self):
@@ -33,12 +34,34 @@ class Test(db.Model):
             "maxGrade": self.max_grade
         }
 
+
+def transform_test_factoids(raw_factoids):
+    modules = {int(m) for m in regex.findall(r"\{(\d+)\}", raw_factoids)}
+
+    processed_factoids = []
+
+    for module in modules:
+        query = select(Factoid.id).where(Factoid.module == module)
+        factoids = db.session.execute(query).scalars().all()
+        processed_factoids.extend(factoids)
+        raw_factoids.replace(f"{{{module}}}", "")
+        raw_factoids.replace(";;", ";")
+
+    return ";".join([str(i) for i in processed_factoids])
+
+
+
 def list_tests():
     tests_list = Test.query.all()
 
     return [test.get_brief_dict() for test in tests_list]
 
 
-def create_test(name: str, discipline: int, due: date, max_grade: int, factoids: str) -> int:
-    print(name, discipline, due, max_grade, factoids)
-    return 1
+def create_test(name: str, discipline: int, due: date, max_grade: int, raw_factoids: str) -> int:
+    factoids = transform_test_factoids(raw_factoids)
+    
+    test = Test(name, discipline, due, max_grade, factoids)
+    db.session.add(test)
+    db.session.commit()
+
+    return test.id
