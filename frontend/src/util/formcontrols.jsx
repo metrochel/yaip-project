@@ -8,11 +8,11 @@ export function TextInputControl({id, label, required}) {
     </div>;
 }
 
-export function NumberInputControl({id, label, required, min, max}) {
+export function NumberInputControl({id, label, required, min, max, onChange}) {
     return <div className="form-box">
         <label htmlFor={id}>{label}</label>
         <input type="number" id={id} name={id} required={required}
-            min={min} max={max}></input>
+            min={min} max={max} onChange={onChange}></input>
     </div>;
 }
 
@@ -36,7 +36,7 @@ export function SelectionControl({id, label, selection, preselected}) {
 
     return <div className="form-box">
         <label htmlFor={id}>{label}</label>
-        <select defaultValue={preselected} name={id}>
+        <select id={id} defaultValue={preselected} name={id}>
             {selectItems}
         </select>
     </div>;

@@ -2,6 +2,7 @@ from flask import Flask, Response, request
 import json
 import disciplines_api, tests_api, factoid_api
 import flask_sqlalchemy
+from datetime import date
 
 from app import app, db
 
@@ -18,7 +19,7 @@ def factoids_handle(func):
             return code(405)
 
         id = request.args.get("discipline")
-        print(id, type(id))
+
         factoids_list = factoid_api.list_factoids(id)
         if factoids_list is None:
             return code(404)
@@ -110,6 +111,32 @@ def tests_handle(func):
         
         jsoned_list = json.dumps(lst, ensure_ascii=False, indent=4)
         return reply(jsoned_list)
+    if func == "create":
+        print(request.method)
+        if request.method != "POST":
+            # /tests/create поддерживает только метод POST.
+            return code(405)
+
+        body = request.get_json()
+        name = body["name"]
+        discipline = int(body["discipline"])
+        due = date.strptime(body["due"], "%Y-%m-%d")
+        max_grade = int(body["maxGrade"])
+        factoids = body["questions"]
+
+        try:
+            id = tests_api.create_test(name, discipline, due, max_grade, factoids)
+            payload = {
+                "created": True,
+                "id": id
+            }
+            print(json.dumps(payload))
+            return reply(json.dumps(payload), 201)
+        except Exception as e:
+            payload = {
+                "created": False
+            }
+            return reply(json.dumps(payload), 500)
     else:
         # Если нет такой функции, вернуть 404 Not Found.
         return code(404)
@@ -143,7 +170,7 @@ def api_disciplines(func):
 
 
 # Маршрут /api/tests
-@app.route("/api/tests/<func>")
+@app.route("/api/tests/<func>", methods=['GET', 'POST'])
 def api_tests(func):
     try:
         return tests_handle(func)

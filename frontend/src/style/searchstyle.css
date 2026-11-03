@@ -7,6 +7,7 @@ search {
     flex-direction: row;
     gap: 10px;
     margin: 25px 0;
+    width: 100%;
 }
 
 search h2 {
@@ -22,17 +23,20 @@ search input {
     padding: 10px;
     border: 2px solid var(--search-border-col);
     border-radius: 10px;
-    width: 92%;
+    align-self: stretch;
     box-shadow: 4px 3px 3px var(--secondary-bg-col);
+    flex: 1;
 }
 
 #search-button {
-    width: 7%;
+    width: fit-content;
     border: 2px solid var(--search-border-col);
     border-radius: 10px;
     background-color: var(--main-bg-col);
+    justify-content: right;
     transition: 0.15s all ease;
     padding: 10px 5px;
+    flex-shrink: 0;
 
     &:hover {
         transform: translateY(-2px);

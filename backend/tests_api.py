@@ -37,3 +37,8 @@ def list_tests():
     tests_list = Test.query.all()
 
     return [test.get_brief_dict() for test in tests_list]
+
+
+def create_test(name: str, discipline: int, due: date, max_grade: int, factoids: str) -> int:
+    print(name, discipline, due, max_grade, factoids)
+    return 1

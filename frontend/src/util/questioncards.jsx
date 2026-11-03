@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { NumberInputControl } from './formcontrols';
 import Search from './knowledgesearch';
 
@@ -19,7 +19,7 @@ function AddFactoidBtn() {
     return <button type="button" id="add-factoid-btn">Добавить ещё</button>
 }
 
-export default function QuestionCard({idx}) {
+export default function QuestionCard({idx, onChange}) {
     const tabs = [null, useRef(null), useRef(null), useRef(null)];
     const [activeTab, setActiveTab] = useState(1);
 
@@ -28,17 +28,27 @@ export default function QuestionCard({idx}) {
         setActiveTab(tab);
     }
 
+    function onResize(tab) {
+        tabs[tab].current.scrollIntoView({container: "nearest", inline: "start", behavior: "instant"});
+    }
+
+    useEffect(() => {
+        window.addEventListener("resize", () => onResize(activeTab));
+        return () => window.removeEventListener("resize", () => onResize(activeTab));
+    }, [activeTab]);
+
     return <div className="question-card">
-        <h2>Карточка вопроса {idx + 1}</h2>
+        <h2>Блок вопросов {idx + 1}</h2>
         <fieldset>
-            <legend>Тип группы вопросов</legend>
+            <legend>Тип блока вопросов</legend>
             <QuestionRadioButton value="module" label="Модуль" onClick={() => activateTab(1)} />
             <QuestionRadioButton value="singlefact" label="Одно знание" onClick={() => activateTab(2)} />
             <QuestionRadioButton value="manyfacts" label="Несколько знаний" onClick={() => activateTab(3)} />
         </fieldset>
         <div className="tabs">
             <QuestionTab ref={tabs[1]}>
-                <NumberInputControl label="Номер модуля" min={1} required={activeTab === 1} />
+                <NumberInputControl label="Номер модуля" min={1} required={activeTab === 1}
+                    onChange={(e) => onChange([Number.parseInt(e.target.value)])} />
             </QuestionTab>
             <QuestionTab ref={tabs[2]}>
                 <p>Одно знание</p>
