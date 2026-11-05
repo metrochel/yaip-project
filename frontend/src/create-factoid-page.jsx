@@ -73,11 +73,6 @@ export default function App() {
     </>;
 }
 
-function getFactoid() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.values();
-}
-
 createRoot(document.body).render(
     <StrictMode>
         <App />
