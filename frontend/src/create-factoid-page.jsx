@@ -12,6 +12,16 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import 'katex/dist/katex.css';
 
+async function onFormSubmit() {
+    const name = document.getElementById("name").value;
+    const discipline = document.getElementById("discipline").value;
+    const module = Number.parseInt(document.getElementById("module").value);
+    const content = document.getElementById("content").value;
+
+    const id = await createFactoid(name, discipline, module, content);
+    window.location.replace(`/factoid/factoid.html?id=${id}`);
+}
+
 function LiveMarkdownEditor() {
     const [md, setMd] = useState("");
 
@@ -32,7 +42,6 @@ function LiveMarkdownEditor() {
 
 export default function App() {
     const urlParams = new URLSearchParams(window.location.search);
-    const formRef = useRef(null);
 
     let preselectId = null;
     if (urlParams.get("discipline")) {
@@ -50,7 +59,7 @@ export default function App() {
         <Header />
         <main>
             <h1>Добавление знаний</h1>
-            <form ref={formRef}>
+            <form onSubmit={(e) => {e.preventDefault(); onFormSubmit();}}>
                 <TextInputControl id="name" label="Название" required={true}/>
                 <SelectionControl id="discipline" label="Дисциплина" 
                     selection={disciplineList} preselected={preselectId} />
@@ -69,18 +78,8 @@ function getFactoid() {
     return urlParams.values();
 }
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.body).render(
     <StrictMode>
         <App />
     </StrictMode> 
 );
-
-document.addEventListener("DOMContentLoaded", async () => {
-    if (!window.location.search) return;
-
-    const [name, discipline, module, content] = getFactoid();
-    if (name === undefined || discipline === undefined || module === undefined || content === undefined) return;
-
-    const id = await createFactoid(name, discipline, module, content);
-    window.location.replace(`/factoid/factoid.html?id=${id}`);
-});

@@ -25,7 +25,7 @@ function getDisciplineParams() {
     return [urlParams.get("name"), urlParams.get("teacher")];
 }
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.body).render(
     <StrictMode>
         <App />
     </StrictMode>

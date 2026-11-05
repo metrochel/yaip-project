@@ -22,7 +22,7 @@ export default function App() {
     );
 }
 
-createRoot(document.getElementById("root"))
+createRoot(document.body)
     .render(<StrictMode>
         <App />
     </StrictMode>);
