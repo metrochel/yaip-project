@@ -47,6 +47,14 @@ function EditBtn() {
     );
 }
 
+function GoToTestBtn({ id }) {
+    return (
+        <button 
+            onClick={() => window.location.replace(`/tests/test.html?id=${id}`)}
+            >Подготовиться</button>
+    );
+}
+
 export default function TestCard({id, name, discipline, due, grade, maxGrade, passed, allowedEdit}) {
     const isDue = due != "";
     return (
@@ -59,7 +67,7 @@ export default function TestCard({id, name, discipline, due, grade, maxGrade, pa
             }
             <div className="grades">
                 {!isDue ? <GradesText grade={grade} maxGrade={maxGrade} passed={passed} /> : <></>}
-                {!passed || isDue ? <button>Подготовиться</button> : <></>}
+                {!passed || isDue ? <GoToTestBtn id={id} /> : <></>}
             </div>
         </div>
     );

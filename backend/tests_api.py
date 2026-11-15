@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 from random import randint
 from app import db
 from factoid_api import Factoid
-from disciplines_api import Discipline
+from disciplines_api import get_discipline_names
 from sqlalchemy import select
 import regex
 
@@ -22,7 +22,8 @@ class Test(db.Model):
         self.factoids = factoids
 
     
-    def get_dict(self, discipline_names=None):
+    def get_dict(self):
+        discipline_names = get_discipline_names()
         dt = datetime(self.due.year, self.due.month, self.due.day)
         # Необходимо здесь умножить на 1 000, так как timestamp считает секунды,
         # тогда как в JS Date.now() возвращает миллисекунды.
@@ -54,11 +55,15 @@ def transform_test_factoids(raw_factoids):
 
 def list_tests():
     tests_list = Test.query.all()
-    discipline_names_query = select(Discipline.id, Discipline.name)
-    discipline_names_result = db.session.execute(discipline_names_query).all()
-    discipline_names = {k:v for k,v in discipline_names_result}
+    return [test.get_dict() for test in tests_list]
 
-    return [test.get_dict(discipline_names) for test in tests_list]
+
+def get_test(test_id: int):
+    test_query = select(Test).filter_by(id=test_id)
+    test_data = db.session.execute(test_query).one_or_none()
+    if test_data is None: return None
+
+    return test_data.t[0].get_dict()
 
 
 def create_test(name: str, discipline: int, due: date, max_grade: int, raw_factoids: str) -> int:

@@ -2,32 +2,7 @@ import { createRoot } from 'react-dom/client';
 import TestCard from '../util/testcards';
 import { apiQuery } from '../util/apireq';
 
-function today() {
-    let curDate = new Date(Date.now());
-    curDate.setHours(0);
-    curDate.setMinutes(0);
-    curDate.setSeconds(0);
-    return curDate.valueOf();
-}
 
-function generateDueText(due) {
-    if (due < today()) {
-        return "";
-    }
-    const msInDay = 1000 * 60 * 60 * 24;
-    let diff = Math.floor((due - today()) / msInDay);
-    if (diff == 0) {
-        return "Сегодня";
-    } else if (diff == 1) {
-        return "Завтра";
-    } else if (diff == 2) {
-        return "Послезавтра";
-    } else if (diff == 3 || diff == 4) {
-        return `${diff} дня`
-    } else {
-        return `${diff} дней`;
-    }
-}
 
 function putSpinner(root) {
     root.render(

@@ -111,6 +111,23 @@ def tests_handle(func):
         
         jsoned_list = json.dumps(lst, ensure_ascii=False, indent=4)
         return reply(jsoned_list)
+    if func == "get":
+        if request.method != "GET":
+            # /tests/get поддерживает только метод GET.
+            return code(405)
+
+        test_id = request.args["id"]
+        if test_id is None:
+            # Не предоставлен ID теста, запрос составлен неправильно.
+            return code(400)
+
+        test_data = tests_api.get_test(int(test_id))
+        if test_data is None:
+            # Не найден тест с таким ID.
+            return code(404)
+
+        # Найден тест с таким ID, вот его данные.
+        return reply(json.dumps(test_data))
     if func == "create":
         print(request.method)
         if request.method != "POST":

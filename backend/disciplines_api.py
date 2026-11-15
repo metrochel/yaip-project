@@ -1,4 +1,7 @@
 from app import db
+from sqlalchemy import select
+
+names_cache = dict()
 
 # Класс Discipline описывает данные одной дисциплины.
 class Discipline(db.Model):
@@ -20,6 +23,19 @@ class Discipline(db.Model):
         }
 
 
+def get_discipline_names():
+    global names_cache
+    if names_cache:
+        return names_cache
+    
+    names_query = select(Discipline.id, Discipline.name)
+    names_result = db.session.execute(names_query).all()
+    names = {k:v for k,v in names_result}
+    names_cache = names
+
+    return names
+
+
 def get_disciplines_list():
     disciplines_list = Discipline.query.all()
     
@@ -31,5 +47,7 @@ def create_discipline(name, teacher):
 
     db.session.add(discipline)
     db.session.commit()
+
+    names_cache.append(name)
 
     return discipline.id
