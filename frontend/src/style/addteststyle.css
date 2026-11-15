@@ -1,9 +1,7 @@
+@import 'stylevars.css';
+
 :root {
     --add-btn-col: lightblue;
-
-    --radio-btn-col: var(--input-border-col);
-    --radio-btn-hover-col: rgb(from var(--input-border-col) calc(r / 2) calc(g / 2) calc(b / 2));
-    --radio-btn-checked-col: rgb(from var(--add-btn-col) calc(r / 1.3) calc(g / 1.3) calc(b / 1.3))
 }
 
 /* Стили для кнопки добавления теста */

@@ -1,0 +1,58 @@
+@import 'stylevars.css';
+
+/* Кнопки добавления и фильтра */
+.caption-btns {
+    display: flex;
+    gap: 5px;
+    flex-direction: row-reverse;
+}
+
+.caption-btns .add-button, .caption-btns .filter-button, #close-button {
+    width: 50px;
+    height: 50px;
+    border: 2px solid;
+    border-radius: 15px;
+    transition: 0.15s all ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.caption-btns .add-button {
+    border-color: var(--add-button-border-col);
+    background-color: var(--add-button-bg-col);
+    box-shadow: 2px 3px 3px var(--add-button-bg-col);
+}
+
+.caption-btns .filter-button {
+    border-color: var(--filter-button-border-col);
+    background-color: var(--filter-button-bg-col);
+    box-shadow: 2px 3px 3px var(--filter-button-bg-col);
+}
+
+.caption-btns .add-button img, .caption-btns .filter-button img {
+    padding: 5px;
+}
+
+/* Кнопка закрытия */
+#close-button {
+    display: flex;
+    border: 2px solid var(--close-button-border-col);
+    box-shadow: 0px 0px 3px inset var(--close-button-border-col);
+    background-color: var(--close-button-bg-col);
+    padding: 5px;
+
+    width: fit-content;
+    height: fit-content;
+
+    & img {
+        width: 25px;
+        height: 25px;
+        flex: 0;
+    }
+}

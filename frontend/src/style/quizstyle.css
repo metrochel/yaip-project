@@ -1,0 +1,90 @@
+.answer-panel {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.answer-panel button {
+    grid-column: 1;
+    width: 100%;
+    padding: 20px;
+
+    word-wrap: break-word;
+    font-size: 1.2em;
+
+    background-color: var(--main-bg-col);
+    border: 2px solid var(--input-border-col);
+    border-radius: 10px;
+    box-shadow: 0 0 4px inset var(--input-border-col);
+
+    transition: 0.15s all ease;
+
+    &:hover {
+        box-shadow: 0 0 2px inset var(--input-border-col);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        box-shadow: 0 0 6px inset var(--input-border-col);
+        transform: scale(0.95);
+    }
+
+    &:nth-of-type(even) {
+        grid-column: 2;
+    }
+}
+
+.answer-panel .correct-ans {
+    border: 2px solid green;
+    color: green;
+    box-shadow: 0 0 2px inset green;
+}
+
+.answer-panel .incorrect-ans {
+    border: 2px solid darkred;
+    color: darkred;
+    box-shadow: 0 0 2px inset darkred;
+}
+
+li {
+    margin: 5px;
+    font-size: 1.1em;
+}
+
+li.correct-text {
+    color: green;
+}
+
+li.incorrect-text {
+    color: darkred;
+}
+
+em.correct-text, em.incorrect-text {
+    color: green;
+    background-color: lightgreen;
+    padding: 1px 10px;
+    border-radius: 10px;
+}
+
+em.incorrect-text {
+    color: red;
+    background-color: pink;
+}
+
+.nav-button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--button-bg-col);
+    border: 2px solid var(--input-border-col);
+    border-radius: 10px;
+    font-size: 1.1em;
+    transition: 0.15s ease all;
+
+    &:hover {
+        background-color: var(--button-hovered-bg-col);
+    }
+
+    &:active {
+        background-color: var(--button-clicked-bg-col);
+    }
+}

@@ -42,6 +42,17 @@ export function SelectionControl({id, label, selection, preselected}) {
     </div>;
 }
 
+export function SliderInputControl({id, label, min, max}) {
+    return <div className="form-box">
+        <label htmlFor={id}>{label}</label>
+        <div>
+            <label>{min}</label>
+            <input id={id} name={id} type="range" min={min} max={max} step={1} />
+            <label>{max}</label>
+        </div>
+    </div>
+}
+
 export function SubmitBtnControl() {
     return <button type="submit">Отправить</button>;
 }

@@ -1,4 +1,5 @@
 import "../style/mainpagestyle.css";
+import "../style/buttonstyle.css";
 
 export function Header() {
     return (
@@ -51,3 +52,10 @@ export function CaptionBtns({ addOnClick, filterOnClick }) {
     );
 }
 
+export function CloseBtn({ onClose }) {
+    return (
+        <button id="close-button" onClick={onClose} type="button">
+            <img src={null} alt="Закрыть" />
+        </button>
+    );
+}

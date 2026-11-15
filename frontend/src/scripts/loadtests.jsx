@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import TestCard from '../util/testcards';
 import { apiQuery } from '../util/apireq';
-
+import { unsignedDaysStr } from '../util/commonfuncs';
 
 
 function putSpinner(root) {
@@ -48,7 +48,7 @@ function renderTests(tests, root, filter) {
         id={test.id}
         name={test.name} 
         discipline={test.discipline} 
-        due={generateDueText(test.due)} 
+        due={unsignedDaysStr(test.due)} 
         grade={test.grade}
         maxGrade={test.maxGrade}
         passed={test.passed}

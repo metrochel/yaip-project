@@ -33,7 +33,7 @@ async function onFormSubmit(questions) {
     const questionIdsStr = stringifiedQs.join(";");
     
     const id = await createTest(name, discipline, due, maxGrade, questionIdsStr);
-    console.log(id);
+    window.location.replace(`/tests/test.html?id=${id}`);
 }
 
 function AddQuestionsBtn({click}) {

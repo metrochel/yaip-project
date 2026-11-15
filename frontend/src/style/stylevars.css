@@ -1,0 +1,27 @@
+:root {
+    --main-bg-col: white;
+    --main-text-col: black;
+
+    --secondary-bg-col: #F7F7F7;
+    --secondary-text-col: #3F3F3F;
+
+    --button-bg-col: var(--main-bg-col);
+    --button-hovered-bg-col: var(--secondary-bg-col);
+    --button-clicked-bg-col: #e0e0e0;
+
+    --add-button-bg-col: #8efd8e;
+    --add-button-border-col: #00aa00;
+    
+    --filter-button-bg-col: #e6e6e6;
+    --filter-button-border-col: #5e5e5e;
+
+    --close-button-bg-col: #ffdede;
+    --close-button-border-col: #ff5353;
+
+    --input-border-col: #c1c1c1;
+    --input-hover-border-col: #a0a0a0;
+
+    --radio-btn-col: var(--input-border-col);
+    --radio-btn-hover-col: rgb(from var(--input-border-col) calc(r / 2) calc(g / 2) calc(b / 2));
+    --radio-btn-checked-col: rgb(from var(--add-btn-col) calc(r / 1.3) calc(g / 1.3) calc(b / 1.3))
+}

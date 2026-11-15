@@ -32,11 +32,24 @@ export function daysStr(days) {
     return `${days} дней`;
 }
 
-export function signedDaysStr(timestamp) {
+export function unsignedDaysStr(timestamp) {
     const msInDay = 24 * 3600 * 1000;
     const today = dateToday();
 
-    console.log(timestamp, today);
+    const days = Math.floor((timestamp - today) / msInDay);
+
+    switch (days) {
+        case 0: return "сегодня";
+        case 1: return "завтра";
+        case 2: return "послезавтра";
+    }
+    
+    return daysStr(days);
+}
+
+export function signedDaysStr(timestamp) {
+    const msInDay = 24 * 3600 * 1000;
+    const today = dateToday();
 
     const days = Math.floor((timestamp - today) / msInDay);
 

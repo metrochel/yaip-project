@@ -137,7 +137,7 @@ def tests_handle(func):
         body = request.get_json()
         name = body["name"]
         discipline = int(body["discipline"])
-        due = date.strptime(body["due"], "%Y-%m-%d")
+        due = date.fromisoformat(body["due"])
         max_grade = int(body["maxGrade"])
         factoids = body["questions"]
 
@@ -202,4 +202,4 @@ def api_tests(func):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

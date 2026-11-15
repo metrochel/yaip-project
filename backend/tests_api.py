@@ -3,7 +3,7 @@ from random import randint
 from app import db
 from factoid_api import Factoid
 from disciplines_api import get_discipline_names
-from sqlalchemy import select
+from sqlalchemy import select, or_
 import regex
 
 class Test(db.Model):
@@ -28,12 +28,19 @@ class Test(db.Model):
         # Необходимо здесь умножить на 1 000, так как timestamp считает секунды,
         # тогда как в JS Date.now() возвращает миллисекунды.
         timestamp = dt.timestamp() * 1000
+
+        factoids_ids = [int(i) for i in self.factoids.split(";")]
+        factoids_query = select(Factoid).filter(or_(*[Factoid.id == fid for fid in factoids_ids]))
+        factoids = db.session.execute(factoids_query).all()
+        factoids_dicts = [row.t[0].get_dict(brief_content=True) for row in factoids]
+
         return {
             "id": self.id,
             "name": self.name,
             "discipline": self.discipline if discipline_names is None else discipline_names[self.discipline],
             "due": timestamp,
-            "maxGrade": self.max_grade
+            "maxGrade": self.max_grade,
+            "factoids": factoids_dicts
         }
 
 

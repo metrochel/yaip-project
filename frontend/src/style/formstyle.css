@@ -1,7 +1,4 @@
-:root {
-    --input-border-col: #c1c1c1;
-    --input-hover-border-col: #a0a0a0;
-}
+@import 'stylevars.css';
 
 /* Этот стиль нужен, чтобы браузер активировал стилизуемые списки и позволил упростить их стилизацию. */
 select, ::picker(select) {
@@ -17,6 +14,12 @@ select, ::picker(select) {
 
     & p {
         display: none;
+    }
+
+    & div {
+        display: flex;
+        gap: 5px;
+        align-items: center;
     }
 }
 

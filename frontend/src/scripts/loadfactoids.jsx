@@ -3,24 +3,9 @@ import { apiQuery } from "../util/apireq";
 import { Spinner } from "../util/common";
 import { firstSentence } from "../util/commonfuncs";
 import Markdown from "react-markdown";
+import { FactoidCard } from "../util/factoidcards";
 
-function ModuleSection({moduleNo, factoids}) {
-    const factoidCards = factoids.map((factoid) => 
-    <div className="factoid-card" key={factoid.id}>
-        <h3>{factoid.name}</h3>
-        <Markdown>{factoid.content}</Markdown>
-        <button onClick={() => {
-            window.location.href = `/factoid/factoid.html?id=${factoid.id}`;
-        }}>Подробнее</button>
-    </div>);
 
-    return <>
-        <h2>Модуль {moduleNo}</h2>
-        <section id="module-tests">
-            {factoidCards}
-        </section>
-    </>;
-}
 
 function putSpinner(root) {
     root.render(<Spinner />);

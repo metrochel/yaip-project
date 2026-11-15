@@ -1,4 +1,4 @@
-import "../style/liststyle.css";
+import "../style/cardstyle.css";
 
 function PassedBubble() {
     return (

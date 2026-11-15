@@ -1,0 +1,102 @@
+/* === Стили для страницы теста === */
+
+@import 'stylevars.css';
+
+.test-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    & button {
+        background-color: var(--button-bg-col);
+        border: 2px solid var(--input-border-col);
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 12pt;
+
+        transition: 0.15s all ease;
+
+        &:hover {
+            background-color: var(--button-hovered-bg-col);
+        }
+
+        &:active {
+            background-color: var(--button-clicked-bg-col);
+        }
+    }
+}
+
+/* === Стили для поп-апа генерации теста === */
+.quiz-popup {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(100, 100, 100, 0.3);
+    visibility: hidden;
+
+    opacity: 0%;
+    transition: 0.3s all ease;
+}
+
+.quiz-popup.open {
+    visibility: visible;
+    opacity: 100%;
+}
+
+.quiz-popup form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 25px;
+
+    width: fit-content;
+    background-color: var(--main-bg-col);
+    border: 3px solid var(--input-border-col);
+    border-radius: 10px;
+
+    & strong {
+        font-size: 16pt;
+    }
+
+    & button {
+        background-color: var(--button-bg-col);
+        border: 2px solid var(--input-border-col);
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 12pt;
+
+        transition: 0.15s all ease;
+
+        &:hover {
+            background-color: var(--button-hovered-bg-col);
+        }
+
+        &:active {
+            background-color: var(--button-clicked-bg-col);
+        }
+    }
+
+    & caption {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    visibility: hidden;
+    transform: translateY(50px);
+    opacity: 0%;
+
+    transition: 0.3s all ease;
+}
+
+.quiz-popup.open form {
+    visibility: visible;
+    transform: none;
+    opacity: 100%;
+}
